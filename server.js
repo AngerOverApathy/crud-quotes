@@ -15,6 +15,16 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
   //extended:true makes it so the object will contain key-value pairs where the value can be any type of data
   app.use(bodyParser.urlencoded({ extended: true })) 
 
+  app.get('/', (req, res) => {
+    db.collection('quotes')
+      .find()
+      .toArray() //use toArray to convert the data into an array
+      .then(results => {
+        console.log(results)
+      })
+      .catch(error => console.error(error))
+  })
+
   app.listen(3001, function(){
     console.log('listening on 3001')
   })
